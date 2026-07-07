@@ -82,6 +82,7 @@ def main():
     rows = []
     with_stock = 0
     no_product = 0
+    zero_qty = 0
 
     for rec in records:
         f = rec.get("fields", {})
@@ -95,14 +96,20 @@ def main():
         price = to_int(f.get(FIELD_PRICE))
         price_val = price if price > 0 else ""
 
-        # Кількість — тільки якщо є прив'язка Product
-        if f.get(FIELD_PRODUCT):
-            qty = to_int(f.get(FIELD_QTY_KYIV)) + to_int(f.get(FIELD_QTY_LVIV))
-            with_stock += 1
-        else:
-            qty = 0
+        # Пропускаємо рядки без прив'язки Product (немає товару в обліку)
+        if not f.get(FIELD_PRODUCT):
             no_product += 1
+            continue
 
+        qty = to_int(f.get(FIELD_QTY_KYIV)) + to_int(f.get(FIELD_QTY_LVIV))
+
+        # Пропускаємо товари яких немає на складі (qty=0)
+        # avto.pro не приймає рядки з нульовою кількістю
+        if qty <= 0:
+            zero_qty += 1
+            continue
+
+        with_stock += 1
         # A=Производитель, B=Код, C=Цена, D=Количество
         rows.append([brand, code, price_val, qty])
 
@@ -117,7 +124,8 @@ def main():
     print(f"\nЗгенеровано {OUTPUT_FILE}:")
     print(f"  Всього рядків: {len(rows)}")
     print(f"  З ціною: {with_price}")
-    print(f"  З прив'язкою Product: {with_stock}, без прив'язки: {no_product}")
+    print(f"  У прайсі (в наявності): {with_stock}")
+    print(f"  Пропущено без Product: {no_product}, з qty=0: {zero_qty}")
     print(f"  В наявності (qty>0): {in_stock}")
     print("\nГотово.")
 
