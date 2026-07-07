@@ -2,14 +2,11 @@
 """
 Генерація прайс-файлу для avto.pro з таблиці-моста Airtable.
 
-Читає таблицю avto.pro → формує CSV у форматі avto.pro:
-  A = Производитель, B = Код, C = Цена, D = Количество
+Формат CSV avto.pro: A=Производитель, B=Код, C=Цена, D=Количество
+Роздільник: ; (крапка з комою)
 
-Кількість = Qty Kyiv + Qty Lviv (з lookup через Product).
-Якщо немає прив'язки Product → Кількість = 0 (немає в наявності).
-
-Файл зберігається як pricelist.csv у корені репозиторію.
-GitHub Actions комітить його → avto.pro читає за raw-посиланням.
+Кількість = Qty Kyiv + Qty Lviv (lookup через Product).
+Немає прив'язки Product → Кількість = 0.
 """
 
 import os
@@ -21,22 +18,25 @@ AIRTABLE_TOKEN = os.environ.get("AIRTABLE_TOKEN", "")
 AIRTABLE_BASE_ID = "appTBCTC4YhAW69K2"
 AVTOPRO_TABLE = "tblQ3fnNWWDtbeNym"
 
-# Назви полів (Airtable повертає значення по назвах)
-NAME_BRAND = "Виробник avto.pro"
-NAME_CODE = "Код avto.pro"
-NAME_PRICE = "Ціна"
-NAME_QTY_KYIV = "Qty Kyiv (WMS)"
-NAME_QTY_LVIV = "Qty Lviv (WMS)"
-NAME_PRODUCT = "Product"
+# Field IDs (читаємо по ID — надійніше ніж по назвах)
+FIELD_CODE = "fldQqKlxEwVC9IYaz"      # Код avto.pro
+FIELD_BRAND = "fldSKZKJY5VmVbrNR"     # Виробник avto.pro
+FIELD_PRICE = "fldz926sEy2QmMdqq"     # Ціна
+FIELD_QTY_KYIV = "fldMKMA8nGstCxV6G"  # Qty Kyiv (lookup)
+FIELD_QTY_LVIV = "fld5GbIHhKlgf7YD8"  # Qty Lviv (lookup)
+FIELD_PRODUCT = "fldUkIKXgn0rLLmdr"   # Product (link)
 
 OUTPUT_FILE = "pricelist.csv"
 
 
-def get_avtopro_records():
-    """Завантажує всі рядки таблиці avto.pro."""
+def get_records():
+    """Завантажує всі рядки avto.pro через REST API (returnFieldsByFieldId)."""
     url = f"https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{AVTOPRO_TABLE}"
     headers = {"Authorization": f"Bearer {AIRTABLE_TOKEN}"}
-    params = {"pageSize": 100}
+    params = {
+        "pageSize": 100,
+        "returnFieldsByFieldId": "true",  # повертати поля по field ID
+    }
     records = []
     offset = None
     while True:
@@ -52,8 +52,8 @@ def get_avtopro_records():
     return records
 
 
-def extract_qty(value):
-    """Lookup повертає список або число. Нормалізуємо в int."""
+def to_int(value):
+    """Нормалізує значення (число, список, або None) в int."""
     if value is None:
         return 0
     if isinstance(value, list):
@@ -76,7 +76,7 @@ def main():
         sys.exit(1)
 
     print("Завантажую таблицю avto.pro...")
-    records = get_avtopro_records()
+    records = get_records()
     print(f"  Отримано {len(records)} рядків")
 
     rows = []
@@ -84,44 +84,41 @@ def main():
     no_product = 0
 
     for rec in records:
-        fields = rec.get("fields", {})
-        code = str(fields.get(NAME_CODE, "")).strip()
-        brand = str(fields.get(NAME_BRAND, "")).strip()
-        price = fields.get(NAME_PRICE, "")
+        f = rec.get("fields", {})
+        code = str(f.get(FIELD_CODE, "")).strip()
+        brand = str(f.get(FIELD_BRAND, "")).strip()
 
         if not code or not brand:
-            continue  # пропускаємо неповні рядки
+            continue
+
+        # Ціна
+        price = to_int(f.get(FIELD_PRICE))
+        price_val = price if price > 0 else ""
 
         # Кількість — тільки якщо є прив'язка Product
-        has_product = bool(fields.get(NAME_PRODUCT))
-        if has_product:
-            qty_kyiv = extract_qty(fields.get(NAME_QTY_KYIV))
-            qty_lviv = extract_qty(fields.get(NAME_QTY_LVIV))
-            qty = qty_kyiv + qty_lviv
+        if f.get(FIELD_PRODUCT):
+            qty = to_int(f.get(FIELD_QTY_KYIV)) + to_int(f.get(FIELD_QTY_LVIV))
             with_stock += 1
         else:
-            qty = 0  # немає прив'язки → немає в наявності
+            qty = 0
             no_product += 1
 
-        # Ціна — ціле число або порожнє
-        try:
-            price_val = int(float(price)) if price != "" else ""
-        except (ValueError, TypeError):
-            price_val = ""
-
-        # Порядок колонок: A=Производитель, B=Код, C=Цена, D=Количество
+        # A=Производитель, B=Код, C=Цена, D=Количество
         rows.append([brand, code, price_val, qty])
 
-    # Записуємо CSV
-    with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f, delimiter=";")
+    with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.writer(fh, delimiter=";")
         for row in rows:
             writer.writerow(row)
 
+    # Статистика
+    with_price = sum(1 for r in rows if r[2] != "")
+    in_stock = sum(1 for r in rows if r[3] > 0)
     print(f"\nЗгенеровано {OUTPUT_FILE}:")
     print(f"  Всього рядків: {len(rows)}")
-    print(f"  З прив'язкою Product (реальний залишок): {with_stock}")
-    print(f"  Без прив'язки (кількість 0): {no_product}")
+    print(f"  З ціною: {with_price}")
+    print(f"  З прив'язкою Product: {with_stock}, без прив'язки: {no_product}")
+    print(f"  В наявності (qty>0): {in_stock}")
     print("\nГотово.")
 
 
