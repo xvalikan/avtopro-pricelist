@@ -20,7 +20,7 @@ jobs:
       - run: pip install requests
       - name: Generate pricelist
         env:
-          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN_avtopro }}
         run: python generate_pricelist.py
       - name: Commit pricelist
         run: |
