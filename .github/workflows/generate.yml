@@ -1,0 +1,31 @@
+name: Generate avto.pro Pricelist
+
+on:
+  schedule:
+    # Кожні 4 години (avto.pro все одно перевіряє раз/год)
+    - cron: '0 */4 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write  # дозвіл комітити файл у репозиторій
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - name: Generate pricelist
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+        run: python generate_pricelist.py
+      - name: Commit pricelist
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pricelist.csv
+          git diff --staged --quiet || git commit -m "Update pricelist $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
