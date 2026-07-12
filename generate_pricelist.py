@@ -2,7 +2,7 @@
 """
 Генерація прайс-файлу для avto.pro з таблиці-моста Airtable.
 
-Формат CSV avto.pro: A=Производитель, B=Код, C=Цена, D=Количество
+Формат CSV avto.pro: A=Производитель, B=Код, C=Цена, D=Количество, E=Описание
 Роздільник: ; (крапка з комою)
 
 Кількість = Qty Kyiv + Qty Lviv (lookup через Product).
@@ -25,6 +25,7 @@ FIELD_PRICE = "fldz926sEy2QmMdqq"     # Ціна
 FIELD_QTY_KYIV = "fldMKMA8nGstCxV6G"  # Qty Kyiv (lookup)
 FIELD_QTY_LVIV = "fld5GbIHhKlgf7YD8"  # Qty Lviv (lookup)
 FIELD_PRODUCT = "fldUkIKXgn0rLLmdr"   # Product (link)
+FIELD_NAME = "fldVQJCkmGnUh34LI"      # Назва (опис для avto.pro)
 
 OUTPUT_FILE = "pricelist.csv"
 
@@ -70,6 +71,19 @@ def to_int(value):
         return 0
 
 
+def clean_text(value):
+    """Нормалізує текст опису: прибирає переноси рядків, зайві пробіли.
+    CSV-екранування (лапки, ;) робить сам csv.writer."""
+    if value is None:
+        return ""
+    text = str(value)
+    # Прибираємо переноси рядків, щоб опис був одним рядком
+    text = text.replace("\r", " ").replace("\n", " ")
+    # Схлопуємо зайві пробіли
+    text = " ".join(text.split())
+    return text.strip()
+
+
 def main():
     if not AIRTABLE_TOKEN:
         print("ПОМИЛКА: встановіть AIRTABLE_TOKEN")
@@ -109,9 +123,12 @@ def main():
             zero_qty += 1
             continue
 
+        # Опис (поле Назва в таблиці-мості)
+        description = clean_text(f.get(FIELD_NAME))
+
         with_stock += 1
-        # A=Производитель, B=Код, C=Цена, D=Количество
-        rows.append([brand, code, price_val, qty])
+        # A=Производитель, B=Код, C=Цена, D=Количество, E=Описание
+        rows.append([brand, code, price_val, qty, description])
 
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as fh:
         writer = csv.writer(fh, delimiter=";")
@@ -121,9 +138,11 @@ def main():
     # Статистика
     with_price = sum(1 for r in rows if r[2] != "")
     in_stock = sum(1 for r in rows if r[3] > 0)
+    with_desc = sum(1 for r in rows if r[4] != "")
     print(f"\nЗгенеровано {OUTPUT_FILE}:")
     print(f"  Всього рядків: {len(rows)}")
     print(f"  З ціною: {with_price}")
+    print(f"  З описом: {with_desc}")
     print(f"  У прайсі (в наявності): {with_stock}")
     print(f"  Пропущено без Product: {no_product}, з qty=0: {zero_qty}")
     print(f"  В наявності (qty>0): {in_stock}")
