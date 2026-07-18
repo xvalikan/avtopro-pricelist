@@ -18,7 +18,7 @@ jobs:
         run: pip install requests
       - name: Generate Prom price file
         env:
-          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN_avtopro }}
         run: python generate_prom.py
       - name: Commit and push
         run: |
