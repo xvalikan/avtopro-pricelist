@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2026-07-18 15:53">
+<shop>
+<name>Mopar</name>
+<company>ФОП Цимбалюк В.І.</company>
+<currencies><currency id="UAH" rate="1"/></currencies>
+<offers>
+<offer id="110904206" available="true">
+<price>3480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110679723" available="false">
+<price>6420</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105601859" available="false">
+<price>7080</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110679810" available="true">
+<price>7920</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107414209" available="true">
+<price>6360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110904204" available="true">
+<price>3060</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107414454" available="true">
+<price>780</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>7</quantity_in_stock>
+</offer>
+<offer id="105640232" available="true">
+<price>6480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="107404215" available="false">
+<price>9600</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105638895" available="true">
+<price>1896</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105582284" available="true">
+<price>528</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107404042" available="true">
+<price>360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110778513" available="true">
+<price>6120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110680056" available="true">
+<price>1344</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105575192" available="true">
+<price>2520</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105638891" available="true">
+<price>1652</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107398110" available="false">
+<price>1056</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107367509" available="true">
+<price>480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="105602703" available="true">
+<price>11100</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105638926" available="false">
+<price>6660</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110778883" available="true">
+<price>1080</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110758024" available="false">
+<price>4380</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107402700" available="true">
+<price>300</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>40</quantity_in_stock>
+</offer>
+<offer id="110847558" available="true">
+<price>2040</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110848070" available="false">
+<price>16200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110845268" available="true">
+<price>1440</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105601006" available="true">
+<price>1200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107404151" available="true">
+<price>4560</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>5</quantity_in_stock>
+</offer>
+<offer id="107398638" available="true">
+<price>780</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>8</quantity_in_stock>
+</offer>
+<offer id="105601012" available="false">
+<price>5400</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105564679" available="true">
+<price>3180</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110679721" available="true">
+<price>2160</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="110778875" available="true">
+<price>396</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>10</quantity_in_stock>
+</offer>
+<offer id="105608341" available="false">
+<price>11220</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105638841" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107414217" available="false">
+<price>7440</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107393742" available="false">
+<price>480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105609346" available="false">
+<price>12600</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107394269" available="true">
+<price>420</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110904210" available="true">
+<price>9120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110778492" available="false">
+<price>960</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107394347" available="true">
+<price>732</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>29</quantity_in_stock>
+</offer>
+<offer id="107415523" available="false">
+<price>672</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105564830" available="false">
+<price>4440</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107414202" available="true">
+<price>7524</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105653831" available="false">
+<price>2520</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105609265" available="true">
+<price>14400</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107414223" available="true">
+<price>6396</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105601423" available="true">
+<price>7620</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>5</quantity_in_stock>
+</offer>
+<offer id="105564647" available="true">
+<price>5400</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>5</quantity_in_stock>
+</offer>
+<offer id="107414292" available="true">
+<price>480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110699560" available="true">
+<price>7680</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107399242" available="false">
+<price>1680</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105564666" available="false">
+<price>3840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110778524" available="true">
+<price>1680</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105576551" available="true">
+<price>3180</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>6</quantity_in_stock>
+</offer>
+<offer id="105564669" available="true">
+<price>2700</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110679724" available="false">
+<price>6420</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107414323" available="true">
+<price>840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>20</quantity_in_stock>
+</offer>
+<offer id="105638831" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110852220" available="true">
+<price>2520</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107414230" available="true">
+<price>720</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>9</quantity_in_stock>
+</offer>
+<offer id="107394309" available="false">
+<price>1500</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110845858" available="true">
+<price>1320</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="107394242" available="true">
+<price>840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>8</quantity_in_stock>
+</offer>
+<offer id="107402784" available="true">
+<price>222</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>14</quantity_in_stock>
+</offer>
+<offer id="105649152" available="true">
+<price>3480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="107393722" available="false">
+<price>216</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105602580" available="false">
+<price>10200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110847825" available="false">
+<price>348</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="103063638" available="true">
+<price>9720</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>10</quantity_in_stock>
+</offer>
+<offer id="110679791" available="false">
+<price>7680</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107393836" available="true">
+<price>756</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110904195" available="false">
+<price>7200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107396414" available="true">
+<price>960</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110679835" available="true">
+<price>17040</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107396355" available="true">
+<price>312</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="103811963" available="false">
+<price>6720</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110782743" available="false">
+<price>5160</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105566520" available="true">
+<price>6000</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107402920" available="true">
+<price>2940</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="107415723" available="true">
+<price>720</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>8</quantity_in_stock>
+</offer>
+<offer id="110782683" available="true">
+<price>3300</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105566108" available="true">
+<price>4800</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110904207" available="true">
+<price>2280</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>6</quantity_in_stock>
+</offer>
+<offer id="110679838" available="true">
+<price>1560</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110845208" available="true">
+<price>5040</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110679717" available="false">
+<price>2640</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110778536" available="true">
+<price>1800</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107362907" available="true">
+<price>4080</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="107360584" available="true">
+<price>6480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>5</quantity_in_stock>
+</offer>
+<offer id="110778526" available="false">
+<price>1464</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110679740" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105564663" available="true">
+<price>2520</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107366840" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="105656286" available="true">
+<price>2040</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110679729" available="false">
+<price>6000</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110679719" available="true">
+<price>1140</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="107398195" available="true">
+<price>1229</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107362845" available="true">
+<price>7200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105656742" available="true">
+<price>2640</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>5</quantity_in_stock>
+</offer>
+<offer id="105654060" available="true">
+<price>3240</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="103811625" available="false">
+<price>13200</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105576133" available="false">
+<price>7800</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105458166" available="true">
+<price>3120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="107404803" available="false">
+<price>6960</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105479556" available="false">
+<price>3240</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105644689" available="true">
+<price>6480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107345312" available="true">
+<price>2280</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110845600" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110757439" available="true">
+<price>23400</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105564781" available="false">
+<price>5400</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107414344" available="true">
+<price>660</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>8</quantity_in_stock>
+</offer>
+<offer id="105609303" available="true">
+<price>10320</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="105638852" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110757687" available="true">
+<price>1440</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105567319" available="false">
+<price>12600</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110679762" available="false">
+<price>6000</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="103811930" available="false">
+<price>15840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105564660" available="false">
+<price>4080</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107404769" available="true">
+<price>8760</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110778521" available="false">
+<price>2880</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107414375" available="true">
+<price>660</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>18</quantity_in_stock>
+</offer>
+<offer id="107360060" available="true">
+<price>3480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="110781657" available="true">
+<price>3120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="110904196" available="true">
+<price>6300</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="107403009" available="true">
+<price>3480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="105475156" available="false">
+<price>3120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110679718" available="true">
+<price>1104</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105645301" available="true">
+<price>4440</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="105623195" available="false">
+<price>14520</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105638855" available="true">
+<price>3360</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110847691" available="true">
+<price>1680</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110904199" available="true">
+<price>2760</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105567519" available="true">
+<price>14280</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110904200" available="false">
+<price>1920</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110904202" available="false">
+<price>3600</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="110849913" available="false">
+<price>1620</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="105638908" available="false">
+<price>6720</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>0</quantity_in_stock>
+</offer>
+<offer id="107397717" available="true">
+<price>1740</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="105643485" available="true">
+<price>6480</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107414266" available="true">
+<price>660</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+<offer id="105656323" available="true">
+<price>2280</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="105475114" available="true">
+<price>3120</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>4</quantity_in_stock>
+</offer>
+<offer id="110679765" available="true">
+<price>960</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="105653989" available="true">
+<price>2700</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="110845770" available="true">
+<price>1764</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>6</quantity_in_stock>
+</offer>
+<offer id="110904208" available="true">
+<price>5040</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="104754212" available="true">
+<price>6840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>1</quantity_in_stock>
+</offer>
+<offer id="110699326" available="true">
+<price>7560</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>2</quantity_in_stock>
+</offer>
+<offer id="107394149" available="true">
+<price>1140</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>9</quantity_in_stock>
+</offer>
+<offer id="105457812" available="true">
+<price>3840</price>
+<currencyId>UAH</currencyId>
+<quantity_in_stock>3</quantity_in_stock>
+</offer>
+</offers>
+</shop>
+</yml_catalog>
