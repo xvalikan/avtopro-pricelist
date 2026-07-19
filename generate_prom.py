@@ -1,44 +1,43 @@
 #!/usr/bin/env python3
 """
-Генерація YML-прайсу для Prom.ua з таблиці-мосту Avto.pro в Airtable.
+Генерація Excel-прайсу для Prom.ua на основі шаблону-експорту.
 
-Синхронізуємо: наявність + кількість + ціна (avto.pro Ціна(грн) × 1.2).
-Ключ зіставлення: Prom ID (Ідентифікатор_товару картки Prom).
+Підхід: беремо оригінальний експорт Prom (prom_template.xlsx) як основу —
+він містить усі 108 колонок, які Prom розуміє. Оновлюємо в ньому ТІЛЬКИ
+три колонки для товарів, що мають Prom ID в Airtable:
+  - Ціна          = avto.pro Ціна(грн) × 1.2 (округлення вгору)
+  - Наявність     = '+' якщо залишок > 0, інакше '-'
+  - Кількість     = Qty Kyiv + Qty Lviv
 
-Логіка:
-- беремо тільки рядки Avto.pro, де заповнений Prom ID
-- кількість = Qty Kyiv + Qty Lviv (lookup через Product)
-- ціна = ceil(Ціна(грн) × 1.2)
-- available = true, якщо кількість > 0, інакше false
-- товари без Prom ID (мастила, сторонні iPhone/EcoFlow) — не потрапляють у файл,
-  тому в кабінеті Prom імпорт треба налаштувати "Товари, яких немає у файлі: Залишити без змін"
+Зіставлення: Ідентифікатор_товару (Prom ID) у шаблоні = Prom ID в Airtable.
 
-Формат: YML (Yandex Market Language) — рідний для Prom.
-Prom зіставляє <offer id="{Prom ID}"> зі своєю карткою за внутрішнім ID.
+Товари в шаблоні, яких немає в Airtable (сторонні iPhone, EcoFlow, мастила),
+залишаються без змін.
+
+Результат: prom.xlsx — той самий формат, що Prom віддає на експорті.
 """
 
 import os
 import sys
 import math
-import html
 import requests
-from datetime import datetime
+import pandas as pd
 
 AIRTABLE_TOKEN = os.environ.get("AIRTABLE_TOKEN", "")
 AIRTABLE_BASE_ID = "appTBCTC4YhAW69K2"
 AVTOPRO_TABLE = "tblQ3fnNWWDtbeNym"
 
-# Field IDs (таблиця Avto.pro)
-FIELD_PROM_ID = "fldFCJybMlLQ2Yg7h"    # Prom ID (ключ)
-FIELD_CODE = "fldQqKlxEwVC9IYaz"       # Код avto.pro (для довідки)
-FIELD_PRICE = "fldz926sEy2QmMdqq"      # Ціна (грн)
-FIELD_QTY_KYIV = "fldMKMA8nGstCxV6G"   # Qty Kyiv (lookup)
-FIELD_QTY_LVIV = "fld5GbIHhKlgf7YD8"   # Qty Lviv (lookup)
-FIELD_PRODUCT = "fldUkIKXgn0rLLmdr"    # Product (link)
+FIELD_PROM_ID = "fldFCJybMlLQ2Yg7h"
+FIELD_PRICE = "fldz926sEy2QmMdqq"
+FIELD_QTY_KYIV = "fldMKMA8nGstCxV6G"
+FIELD_QTY_LVIV = "fld5GbIHhKlgf7YD8"
+FIELD_PRODUCT = "fldUkIKXgn0rLLmdr"
 
-PROM_MARKUP = 1.2   # Prom = avto.pro × 1.2
+PROM_MARKUP = 1.2
 
-OUTPUT_FILE = "prom.xml"
+TEMPLATE_FILE = "prom_template.xlsx"
+OUTPUT_FILE = "prom.xlsx"
+SHEET_NAME = "Export Products Sheet"
 
 
 def get_records():
@@ -61,8 +60,6 @@ def get_records():
 
 
 def lookup_sum(value):
-    """Lookup-поле в Airtable повертається як {linkedRecordIds, valuesByLinkedRecordId}
-    або як список чисел. Нормалізуємо в int."""
     if value is None:
         return 0
     if isinstance(value, dict):
@@ -99,78 +96,62 @@ def main():
         print("ПОМИЛКА: встановіть AIRTABLE_TOKEN")
         sys.exit(1)
 
-    print("Завантажую таблицю Avto.pro...")
+    if not os.path.exists(TEMPLATE_FILE):
+        print(f"ПОМИЛКА: не знайдено шаблон {TEMPLATE_FILE}")
+        print("Покладіть оригінальний експорт Prom у репозиторій під назвою prom_template.xlsx")
+        sys.exit(1)
+
+    print("Завантажую дані Airtable...")
     records = get_records()
-    print(f"  Отримано {len(records)} рядків")
+    print(f"  Отримано {len(records)} рядків Avto.pro")
 
-    offers = []
-    skipped_no_promid = 0
-    skipped_no_product = 0
-
+    prom_data = {}
     for rec in records:
         f = rec.get("fields", {})
         prom_id = str(f.get(FIELD_PROM_ID, "")).strip()
-
-        # без Prom ID — не синхронізуємо (мастила, сторонні товари)
-        if not prom_id:
-            skipped_no_promid += 1
+        if not prom_id or not f.get(FIELD_PRODUCT):
             continue
-
-        # без прив'язки Product немає залишків
-        if not f.get(FIELD_PRODUCT):
-            skipped_no_product += 1
-            continue
-
         qty = lookup_sum(f.get(FIELD_QTY_KYIV)) + lookup_sum(f.get(FIELD_QTY_LVIV))
-
-        # ціна avto.pro × 1.2, округлення вгору
-        price_avtopro = f.get(FIELD_PRICE)
         try:
-            price_avtopro = float(price_avtopro)
+            price_av = float(f.get(FIELD_PRICE))
         except (ValueError, TypeError):
-            price_avtopro = 0
-        price_prom = math.ceil(price_avtopro * PROM_MARKUP) if price_avtopro > 0 else 0
-
-        available = "true" if qty > 0 else "false"
-
-        offers.append({
-            "id": prom_id,
-            "available": available,
-            "price": price_prom,
+            price_av = 0
+        price = math.ceil(price_av * PROM_MARKUP) if price_av > 0 else 0
+        prom_data[prom_id] = {
+            "price": price,
+            "available": "+" if qty > 0 else "-",
             "qty": max(qty, 0),
-        })
+        }
 
-    # Формуємо YML
-    date_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    lines = []
-    lines.append('<?xml version="1.0" encoding="UTF-8"?>')
-    lines.append(f'<yml_catalog date="{date_str}">')
-    lines.append('<shop>')
-    lines.append('<name>Mopar</name>')
-    lines.append('<company>ФОП Цимбалюк В.І.</company>')
-    lines.append('<currencies><currency id="UAH" rate="1"/></currencies>')
-    lines.append('<offers>')
-    for o in offers:
-        lines.append(f'<offer id="{html.escape(o["id"])}" available="{o["available"]}">')
-        if o["price"] > 0:
-            lines.append(f'<price>{o["price"]}</price>')
-        lines.append('<currencyId>UAH</currencyId>')
-        lines.append(f'<quantity_in_stock>{o["qty"]}</quantity_in_stock>')
-        lines.append('</offer>')
-    lines.append('</offers>')
-    lines.append('</shop>')
-    lines.append('</yml_catalog>')
+    print(f"  Товарів з Prom ID для оновлення: {len(prom_data)}")
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as fh:
-        fh.write("\n".join(lines))
+    print(f"Читаю шаблон {TEMPLATE_FILE}...")
+    df = pd.read_excel(TEMPLATE_FILE, sheet_name=SHEET_NAME, dtype={"Ідентифікатор_товару": str})
 
-    in_stock = sum(1 for o in offers if o["available"] == "true")
-    with_price = sum(1 for o in offers if o["price"] > 0)
+    updated = 0
+    not_in_airtable = 0
+    for idx, row in df.iterrows():
+        pid = row.get("Ідентифікатор_товару")
+        if pd.isna(pid):
+            continue
+        pid = str(pid).strip()
+        if pid.endswith(".0"):
+            pid = pid[:-2]
+        if pid in prom_data:
+            d = prom_data[pid]
+            if d["price"] > 0:
+                df.at[idx, "Ціна"] = d["price"]
+            df.at[idx, "Наявність"] = d["available"]
+            df.at[idx, "Кількість"] = d["qty"]
+            updated += 1
+        else:
+            not_in_airtable += 1
+
+    df.to_excel(OUTPUT_FILE, sheet_name=SHEET_NAME, index=False)
+
     print(f"\nЗгенеровано {OUTPUT_FILE}:")
-    print(f"  Offer-ів у прайсі: {len(offers)}")
-    print(f"  В наявності (qty>0): {in_stock}")
-    print(f"  З ціною: {with_price}")
-    print(f"  Пропущено без Prom ID: {skipped_no_promid}, без Product: {skipped_no_product}")
+    print(f"  Оновлено товарів: {updated}")
+    print(f"  Залишено без змін (немає в Airtable): {not_in_airtable}")
     print("\nГотово.")
 
 
