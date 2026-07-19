@@ -2,7 +2,6 @@ name: Prom.ua Price Sync
 
 on:
   schedule:
-    # кожні 4 години з 6:00 до 22:00 (UTC+3 = Київ). У UTC це 3,7,11,15,19
     - cron: '0 3,7,11,15,19 * * *'
   workflow_dispatch:
 
@@ -18,7 +17,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install deps
-        run: pip install requests
+        run: pip install requests pandas openpyxl
       - name: Generate Prom price file
         env:
           AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN_avtopro }}
@@ -27,6 +26,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add prom.xml
+          git add prom.xlsx
           git diff --staged --quiet || git commit -m "Update Prom price file"
           git push
