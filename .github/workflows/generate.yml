@@ -26,6 +26,6 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add pricelist.csv
+          git add pricelist.csv pricelist_khm.csv pricelist_lviv.csv
           git diff --staged --quiet || git commit -m "Update pricelist $(date -u +%Y-%m-%dT%H:%M:%SZ)"
           git push
