@@ -5,8 +5,17 @@
 Формат CSV avto.pro: A=Производитель, B=Код, C=Цена, D=Количество, E=Описание
 Роздільник: ; (крапка з комою)
 
-Кількість = Qty Kyiv + Qty Lviv (lookup через Product).
-Немає прив'язки Product → Кількість = 0.
+Генерує три файли:
+  pricelist.csv       — сумарний (Хмельницький + Львів), як було раніше
+  pricelist_khm.csv   — тільки залишки складу Хмельницький
+  pricelist_lviv.csv  — тільки залишки складу Львів
+
+Окремі файли потрібні для функції "кілька складів" в кабінеті avto.pro:
+кожен склад підключається своїм посиланням і показує власну наявність.
+
+Кількість береться з lookup через Product.
+Немає прив'язки Product → рядок пропускається.
+Примітка: поле "Qty Kyiv" — історична назва, фактично це Хмельницький.
 """
 
 import os
@@ -27,7 +36,9 @@ FIELD_QTY_LVIV = "fld5GbIHhKlgf7YD8"  # Qty Lviv (lookup)
 FIELD_PRODUCT = "fldUkIKXgn0rLLmdr"   # Product (link)
 FIELD_NAME = "fldVQJCkmGnUh34LI"      # Назва (опис для avto.pro)
 
-OUTPUT_FILE = "pricelist.csv"
+OUTPUT_FILE = "pricelist.csv"            # сумарний (як було)
+OUTPUT_KHM = "pricelist_khm.csv"         # тільки Хмельницький
+OUTPUT_LVIV = "pricelist_lviv.csv"       # тільки Львів
 
 
 def get_records():
@@ -93,7 +104,9 @@ def main():
     records = get_records()
     print(f"  Отримано {len(records)} рядків")
 
-    rows = []
+    rows = []       # сумарний
+    rows_khm = []   # Хмельницький
+    rows_lviv = []  # Львів
     with_stock = 0
     no_product = 0
     zero_qty = 0
@@ -115,7 +128,9 @@ def main():
             no_product += 1
             continue
 
-        qty = to_int(f.get(FIELD_QTY_KYIV)) + to_int(f.get(FIELD_QTY_LVIV))
+        qty_khm = to_int(f.get(FIELD_QTY_KYIV))    # поле зветься Kyiv, фактично Хмельницький
+        qty_lviv = to_int(f.get(FIELD_QTY_LVIV))
+        qty = qty_khm + qty_lviv
 
         # Пропускаємо товари яких немає на складі (qty=0)
         # avto.pro не приймає рядки з нульовою кількістю
@@ -129,11 +144,20 @@ def main():
         with_stock += 1
         # A=Производитель, B=Код, C=Цена, D=Количество, E=Описание
         rows.append([brand, code, price_val, qty, description])
+        if qty_khm > 0:
+            rows_khm.append([brand, code, price_val, qty_khm, description])
+        if qty_lviv > 0:
+            rows_lviv.append([brand, code, price_val, qty_lviv, description])
 
-    with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh, delimiter=";")
-        for row in rows:
-            writer.writerow(row)
+    def write_csv(path, data):
+        with open(path, "w", newline="", encoding="utf-8") as fh:
+            writer = csv.writer(fh, delimiter=";")
+            for row in data:
+                writer.writerow(row)
+
+    write_csv(OUTPUT_FILE, rows)
+    write_csv(OUTPUT_KHM, rows_khm)
+    write_csv(OUTPUT_LVIV, rows_lviv)
 
     # Статистика
     with_price = sum(1 for r in rows if r[2] != "")
@@ -146,6 +170,10 @@ def main():
     print(f"  У прайсі (в наявності): {with_stock}")
     print(f"  Пропущено без Product: {no_product}, з qty=0: {zero_qty}")
     print(f"  В наявності (qty>0): {in_stock}")
+    print(f"\nЗгенеровано {OUTPUT_KHM} (Хмельницький):")
+    print(f"  Рядків: {len(rows_khm)}, одиниць: {sum(r[3] for r in rows_khm)}")
+    print(f"\nЗгенеровано {OUTPUT_LVIV} (Львів):")
+    print(f"  Рядків: {len(rows_lviv)}, одиниць: {sum(r[3] for r in rows_lviv)}")
     print("\nГотово.")
 
 
