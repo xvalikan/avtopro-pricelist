@@ -11,8 +11,12 @@
 
 Зіставлення: Ідентифікатор_товару (Prom ID) у шаблоні = Prom ID в Airtable.
 
-Товари в шаблоні, яких немає в Airtable (сторонні iPhone, EcoFlow, мастила),
-залишаються без змін.
+Товари в шаблоні, яких немає в Airtable (сторонні iPhone, EcoFlow тощо),
+ВИКЛЮЧАЮТЬСЯ з файлу повністю. Інакше Prom щоразу відновлював би їм
+стару наявність із шаблону, і ручне вимкнення не трималося б.
+У налаштуваннях імпорту Prom має стояти "Товари, яких немає у файлі:
+Залишити без змін" — тоді ці товари просто ігноруються, і ви керуєте
+ними вручну в кабінеті.
 
 Результат: prom.xlsx — той самий формат, що Prom віддає на експорті.
 """
@@ -130,6 +134,8 @@ def main():
 
     updated = 0
     not_in_airtable = 0
+    keep_rows = []      # індекси рядків, які лишаємо у файлі
+    dropped = []        # сторонні товари, які прибираємо
     for idx, row in df.iterrows():
         pid = row.get("Ідентифікатор_товару")
         if pd.isna(pid):
@@ -144,14 +150,22 @@ def main():
             df.at[idx, "Наявність"] = d["available"]
             df.at[idx, "Кількість"] = d["qty"]
             updated += 1
+            keep_rows.append(idx)
         else:
             not_in_airtable += 1
+            dropped.append(str(row.get("Назва_позиції", pid))[:50])
 
-    df.to_excel(OUTPUT_FILE, sheet_name=SHEET_NAME, index=False)
+    # Лишаємо тільки товари, якими керує Airtable
+    df_out = df.loc[keep_rows]
+    df_out.to_excel(OUTPUT_FILE, sheet_name=SHEET_NAME, index=False)
 
     print(f"\nЗгенеровано {OUTPUT_FILE}:")
     print(f"  Оновлено товарів: {updated}")
-    print(f"  Залишено без змін (немає в Airtable): {not_in_airtable}")
+    print(f"  Виключено з файлу (немає в Airtable): {not_in_airtable}")
+    if dropped:
+        print("\n  Ці товари Prom НЕ оновлюватиме — керуйте ними вручну:")
+        for name in dropped:
+            print(f"    • {name}")
     print("\nГотово.")
 
 
